@@ -1,4 +1,3 @@
-//From Bevy roguelike tutorial - https://maciejglowka.com/blog/bevy-roguelike-tutorial-devlog-part-1/
 use bevy::prelude::*;
 
 use crate::board::components::Position;
@@ -7,8 +6,10 @@ use super::{GraphicsAssets, TILE_SIZE, PIECE_Z, PIECE_SPEED, POSITION_TOLERANCE}
 
 pub fn update_piece_position(
     mut query: Query<(&Position, &mut Transform), With<Piece>>,
-        time: Res<Time>,
+    time: Res<Time>,
+    mut ev_wait: EventWriter<super::GraphicsWaitEvent>
 ) {
+    let mut animating = false;
     for (position, mut transform) in query.iter_mut() {
         let target = super::get_world_position(&position, PIECE_Z);
         let d = (target - transform.translation).length();
@@ -17,9 +18,13 @@ pub fn update_piece_position(
                 target,
                 PIECE_SPEED * time.delta_seconds()
             );
+            animating = true;
         } else {
             transform.translation = target;
         }
+    }
+    if animating {
+        ev_wait.send(super::GraphicsWaitEvent);
     }
 }
 

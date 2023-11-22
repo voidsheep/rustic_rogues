@@ -7,8 +7,6 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.10"
-specs = "0.20.0"
-specs-derive = "0.4.1"
 
 
  
