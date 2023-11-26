@@ -17,7 +17,9 @@ pub struct Walk;
 //- - - - -
 
 #[derive(Component)]
-pub struct HP {
+pub struct Health {
     pub max_hp: i8,
     pub hp: i8,
 }
+
+//#[derive(Component)]
