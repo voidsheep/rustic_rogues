@@ -13,9 +13,7 @@ impl Plugin for ActionsPlugin {
             .add_event::<NextActorEvent>()
             .add_event::<ActionsCompleteEvent>()
             .add_event::<InvalidPlayerActionEvent>()
-            .add_system(
-                systems::process_action_queue.run_if(on_event::<TickEvent>())
-            );
+            .add_system(systems::process_action_queue.run_if(on_event::<TickEvent>()));
     }
 }
 

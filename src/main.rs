@@ -19,20 +19,15 @@ fn main() {
 
     App::new()
         .add_plugins(
-            DefaultPlugins.set(
-                WindowPlugin {
+            DefaultPlugins
+                .set(WindowPlugin {
                     primary_window: Some(Window {
-                        resolution: (
-                            globals::WINDOW_WIDTH,
-                            globals::WINDOW_HEIGHT
-                        ).into(),
+                        resolution: (globals::WINDOW_WIDTH, globals::WINDOW_HEIGHT).into(),
                         ..Default::default()
                     }),
                     ..Default::default()
-                }
-            ).set(
-                ImagePlugin::default_nearest()
-            )
+                })
+                .set(ImagePlugin::default_nearest()),
         )
         .insert_resource(Msaa::Off)
         .add_state::<states::MainState>()
@@ -44,6 +39,7 @@ fn main() {
         .add_plugin(input::InputPlugin)
         .add_plugin(manager::ManagerPlugin)
         .add_plugin(player::PlayerPlugin)
+        .add_plugin(pieces::PiecesPlugin)
         .add_startup_system(camera::setup)
         .run()
 }

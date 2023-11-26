@@ -18,5 +18,5 @@ impl Plugin for BoardPlugin {
 
 #[derive(Default, Resource)]
 pub struct CurrentBoard {
-    pub tiles: HashMap<Vector2Int, Entity>
+    pub tiles: HashMap<Vector2Int, Entity>,
 }
