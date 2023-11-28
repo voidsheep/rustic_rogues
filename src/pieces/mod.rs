@@ -34,6 +34,10 @@ pub fn spawn_npcs(mut commands: Commands) {
         Position {
             v: Vector2Int::new(5, 5),
         },
+        components::Health {
+            max_hp: 3,
+            hp: 3,
+        },
         components::Walk,
     ));
 }

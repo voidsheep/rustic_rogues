@@ -1,3 +1,4 @@
+//From Bevy roguelike tutorial - https://maciejglowka.com/blog/bevy-roguelike-tutorial-devlog-part-1/
 use bevy::prelude::*;
 
 use crate::board::{components::Position, CurrentBoard};
@@ -22,3 +23,18 @@ impl Action for WalkAction {
         true
     }
 }
+
+//- - - - - - - -
+//My Functions
+//- - - - - - - -
+pub struct Attack{
+    pub attacker: Entity,
+    pub defender: Entity,
+    pub damage: u8
+}
+impl Attack for Action {
+    //check if attacker is next to defender
+    //check if defender can be damaged
+
+}
+
