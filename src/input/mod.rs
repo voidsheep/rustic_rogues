@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use std::collections::VecDeque;
 
-use crate::actions::{models::WalkAction, ActorQueue};
+use crate::actions::{models::WalkAction, models::Attack, ActorQueue};
 use crate::board::components::Position;
 use crate::pieces::components::Actor;
 use crate::player::Player;
@@ -26,6 +26,10 @@ const DIR_KEY_MAPPING: [(KeyCode, Vector2Int); 4] = [
     (KeyCode::D, Vector2Int::RIGHT),
 ];
 
+const ACT_KEY_MAPPING: [(KeyCode); 1] = [
+    (KeyCode::Q),
+];
+
 fn player_position(
     keys: ResMut<Input<KeyCode>>,
     mut player_query: Query<(Entity, &Position, &mut Actor), With<Player>>,
@@ -43,6 +47,18 @@ fn player_position(
         actor.0 = Some(Box::new(action));
         queue.0 = VecDeque::from([entity]);
         ev_input.send(PlayerInputReadyEvent);
-        info!("Input ready");
+        info!("WASD Pressed");
+    }
+    //mine
+    if keys.pressed(KeyCode::Q){
+        let action = Attack{ //need to figure out how to send the enemy
+            attacker: entity,
+            defender: entity,
+            damage: 1,
+        };
+        actor.0 = Some(Box::new(action));
+        queue.0 = VecDeque::from([entity]);
+        ev_input.send(PlayerInputReadyEvent);
+        info!("Q Pressed");
     }
 }

@@ -32,3 +32,4 @@ fn spawn_player(mut commands: Commands) {
         },
     ));
 }
+

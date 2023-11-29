@@ -32,9 +32,23 @@ pub struct Attack{
     pub defender: Entity,
     pub damage: u8
 }
-impl Attack for Action {
+impl Action for Attack {
+    fn execute(& self, world: &mut World) -> bool {
+        let Some(atk_pos) = world.get::<Position>(self.attacker) else {return false};
+        let Some(def_pos) = world.get::<Position>(self.defender) else {return false};
+        let distance_x = (atk_pos.v.x - def_pos.v.x).abs();
+        let distance_y = (atk_pos.v.y - def_pos.v.y).abs();
+
+        if (distance_x != 1) && (distance_y != 1){
+            println!("x distance: {}, y distance: {}", distance_x, distance_y);
+            info!("The attack failed");
+            return false;
+        }
+        println!("x distance: {}, y distance: {}", distance_x, distance_y);
+        info!("Hit!");
+        true
+    }
     //check if attacker is next to defender
     //check if defender can be damaged
 
 }
-
