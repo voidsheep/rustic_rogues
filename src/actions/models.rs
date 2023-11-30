@@ -23,7 +23,6 @@ impl Action for WalkAction {
         true
     }
 }
-
 //- - - - - - - -
 //My Functions
 //- - - - - - - -
@@ -39,16 +38,10 @@ impl Action for Attack {
         let distance_x = (atk_pos.v.x - def_pos.v.x).abs();
         let distance_y = (atk_pos.v.y - def_pos.v.y).abs();
 
-        if (distance_x != 1) && (distance_y != 1){
-            println!("x distance: {}, y distance: {}", distance_x, distance_y);
-            info!("The attack failed");
+        if (distance_x != 1 || distance_y != 0) && (distance_x != 0 || distance_y != 1) {
             return false;
         }
-        println!("x distance: {}, y distance: {}", distance_x, distance_y);
         info!("Hit!");
         true
     }
-    //check if attacker is next to defender
-    //check if defender can be damaged
-
 }
