@@ -14,9 +14,10 @@ mod pieces;
 mod tiles;
 mod ui;
 
+//holds a copy of the handle for other systems to use
 #[derive(Resource)]
 pub struct GraphicsAssets {
-    pub sprite_texture: Handle<TextureAtlas>,
+    pub sprite_texture: Handle<TextureAtlas>
 }
 
 pub struct GraphicsWaitEvent;
@@ -28,16 +29,19 @@ impl Plugin for GraphicsPlugin {
         app.add_event::<GraphicsWaitEvent>()
             .add_startup_system(assets::load_assets)
             .add_system(pieces::spawn_piece_renderer)
-            .add_system(ui::spawn_ui)
             .add_system(pieces::update_piece_position)
-            .add_system(tiles::spawn_tile_renderer);
+            .add_system(tiles::spawn_tile_renderer)
+            .add_system(ui::spawn_ui);
     }
 }
 
-fn get_world_position(position: &Position, z: f32) -> Vec3 {
+fn get_world_position(
+    position: &Position,
+    z: f32
+) -> Vec3 {
     Vec3::new(
         TILE_SIZE * position.v.x as f32,
         TILE_SIZE * position.v.y as f32,
-        z,
+        z
     )
 }

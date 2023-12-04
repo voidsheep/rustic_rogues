@@ -42,7 +42,7 @@ impl Action for Attack {
         if (distance_x != 1 || distance_y != 0) && (distance_x != 0 || distance_y != 1) {
             return false;
         }
-        info!("Hit!");
+        info!("Hit for {} damage!", self.damage);
         //deal damage
         let Some(mut def_health) = world.get_mut::<Health>(self.defender) else {return false};
         def_health.hp = def_health.hp - self.damage;
