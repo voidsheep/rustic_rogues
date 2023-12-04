@@ -3,6 +3,7 @@ use bevy::prelude::*;
 
 use crate::board::{components::Position, CurrentBoard};
 use crate::vectors::Vector2Int;
+use crate::pieces::components::Health;
 
 use super::Action;
 
@@ -42,6 +43,12 @@ impl Action for Attack {
             return false;
         }
         info!("Hit!");
+        //deal damage
+        let Some(mut def_health) = world.get_mut::<Health>(self.defender) else {return false};
+        def_health.hp = def_health.hp - self.damage;
+        if def_health.hp <= 0 {
+            world.despawn(self.defender);
+        }
         true
     }
 }
