@@ -2,7 +2,7 @@
 use bevy::prelude::*;
 
 use crate::board::components::Position;
-use crate::pieces::components::{Actor, Piece, Health};
+use crate::pieces::components::{Actor, Health, Piece};
 use crate::states::MainState;
 use crate::vectors::Vector2Int;
 
@@ -27,10 +27,6 @@ fn spawn_player(mut commands: Commands) {
         Position {
             v: Vector2Int::new(0, 0),
         },
-        Health {
-            max_hp: 3,
-            hp: 3,
-        },
+        Health { max_hp: 3, hp: 3 },
     ));
 }
-

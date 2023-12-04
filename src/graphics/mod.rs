@@ -17,7 +17,7 @@ mod ui;
 //holds a copy of the handle for other systems to use
 #[derive(Resource)]
 pub struct GraphicsAssets {
-    pub sprite_texture: Handle<TextureAtlas>
+    pub sprite_texture: Handle<TextureAtlas>,
 }
 
 pub struct GraphicsWaitEvent;
@@ -35,13 +35,10 @@ impl Plugin for GraphicsPlugin {
     }
 }
 
-fn get_world_position(
-    position: &Position,
-    z: f32
-) -> Vec3 {
+fn get_world_position(position: &Position, z: f32) -> Vec3 {
     Vec3::new(
         TILE_SIZE * position.v.x as f32,
         TILE_SIZE * position.v.y as f32,
-        z
+        z,
     )
 }

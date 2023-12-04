@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use std::collections::VecDeque;
 
-use crate::actions::{models::WalkAction, models::Attack, ActorQueue};
+use crate::actions::{models::Attack, models::WalkAction, ActorQueue};
 use crate::board::components::Position;
 use crate::pieces::components::{Actor, Health};
 use crate::player::Player;
@@ -51,37 +51,46 @@ fn player_position(
 //My Functions
 //- - - - - - - -
 ///Detect if an NPC can be attacked. If so, create an attack action and push it
-///Only one target can be attacked a turn 
-fn player_atk(keys: ResMut<Input<KeyCode>>,
+///Only one target can be attacked a turn
+fn player_atk(
+    keys: ResMut<Input<KeyCode>>,
     mut player_query: Query<(Entity, &mut Actor), With<Player>>,
     mut queue: ResMut<ActorQueue>,
     query_entity: Query<Entity, (With<Health>, Without<Player>)>,
-    query_entity_pos: Query<&Position, (With<Health>, Without<Player>)>, //will probably remove without player to make more generic 
+    query_entity_pos: Query<&Position, (With<Health>, Without<Player>)>, //will probably remove without player to make more generic
     query_player_pos: Query<&Position, With<Player>>,
     mut ev_input: EventWriter<PlayerInputReadyEvent>,
-){
-     if keys.just_pressed(KeyCode::Q){
-        let Ok((attacker, mut actor)) = player_query.get_single_mut() else { return;}; 
-        let Ok(player_pos) = query_player_pos.get_single() else { info!("error"); return };
- 
-         for defender in &query_entity {
-             let Ok(defender_pos) = query_entity_pos.get(defender) else { info!("error"); return};
-             let distance_x = (player_pos.v.x - defender_pos.v.x).abs();
-             let distance_y = (player_pos.v.y - defender_pos.v.y).abs();
+) {
+    if keys.just_pressed(KeyCode::Q) {
+        let Ok((attacker, mut actor)) = player_query.get_single_mut() else {
+            return;
+        };
+        let Ok(player_pos) = query_player_pos.get_single() else {
+            info!("error");
+            return;
+        };
 
-             if (distance_x != 1 || distance_y != 0) && (distance_x != 0 || distance_y != 1){
-                 continue;
-             }
- 
-             let action = Attack{
-                 attacker: attacker, //player
-                 defender: defender, //NPC
-                 damage: 1,
-             };
-             actor.0 = Some(Box::new(action));
-             queue.0 = VecDeque::from([attacker]);
-             ev_input.send(PlayerInputReadyEvent);
-         }
+        for defender in &query_entity {
+            let Ok(defender_pos) = query_entity_pos.get(defender) else {
+                info!("error");
+                return;
+            };
+            let distance_x = (player_pos.v.x - defender_pos.v.x).abs();
+            let distance_y = (player_pos.v.y - defender_pos.v.y).abs();
+
+            if (distance_x != 1 || distance_y != 0) && (distance_x != 0 || distance_y != 1) {
+                continue;
+            }
+
+            let action = Attack {
+                attacker: attacker, //player
+                defender: defender, //NPC
+                damage: 1,
+            };
+            actor.0 = Some(Box::new(action));
+            queue.0 = VecDeque::from([attacker]);
+            ev_input.send(PlayerInputReadyEvent);
+        }
         info!("Q Pressed");
     }
 }
