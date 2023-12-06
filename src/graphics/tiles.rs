@@ -13,7 +13,7 @@ pub fn spawn_tile_renderer(
         let mut sprite = TextureAtlasSprite::new(177);
         sprite.custom_size = Some(Vec2::splat(TILE_SIZE));
         sprite.color = Color::MIDNIGHT_BLUE;
-        let v = super::get_world_position(&position, TILE_Z);
+        let v = super::get_world_position(position, TILE_Z);
         commands.entity(entity).insert(SpriteSheetBundle {
             sprite,
             texture_atlas: assets.sprite_texture.clone(),
@@ -23,6 +23,7 @@ pub fn spawn_tile_renderer(
     }
 }
 
+//inspired by code above
 pub fn spawn_wall_renderer(
     mut commands: Commands,
     query: Query<(Entity, &Position), Added<Wall>>,
@@ -32,7 +33,7 @@ pub fn spawn_wall_renderer(
         let mut sprite = TextureAtlasSprite::new(219);
         sprite.custom_size = Some(Vec2::splat(TILE_SIZE));
         sprite.color = Color::TEAL;
-        let v = super::get_world_position(&position, 1.0);
+        let v = super::get_world_position(position, 1.0);
         commands.entity(entity).insert(SpriteSheetBundle {
             sprite,
             texture_atlas: assets.sprite_texture.clone(),

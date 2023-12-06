@@ -13,7 +13,7 @@ impl Action for WalkAction {
         let Some(board) = world.get_resource::<CurrentBoard>() else {
             return false;
         };
-        if (board.walls.contains_key(&self.1)) || (!board.tiles.contains_key(&self.1))  {
+        if (board.walls.contains_key(&self.1)) || (!board.tiles.contains_key(&self.1)) {
             return false;
         };
 
@@ -51,8 +51,8 @@ impl Action for Attack {
         let Some(mut def_health) = world.get_mut::<Health>(self.defender) else {
             return false;
         };
-        def_health.hp = def_health.hp - self.damage;
-        if def_health.hp <= 0 {
+        def_health.hp -= self.damage;
+        if def_health.hp == 0 {
             world.despawn(self.defender);
         }
         true
@@ -60,22 +60,26 @@ impl Action for Attack {
 }
 
 #[test]
-fn test_hit(){
+fn test_hit() {
     let mut world = World::new();
 
- let attacker = world.spawn((
-        Position {
-            v: Vector2Int::new(0, 0),
-        },
-        Health { max_hp: 3, hp: 3 },
-    )).id();
+    let attacker = world
+        .spawn((
+            Position {
+                v: Vector2Int::new(0, 0),
+            },
+            Health { max_hp: 3, hp: 3 },
+        ))
+        .id();
 
-    let defender = world.spawn((
-        Position {
-            v: Vector2Int::new(0, 1),
-        },
-        Health { max_hp: 6, hp: 6 },
-    )).id();
+    let defender = world
+        .spawn((
+            Position {
+                v: Vector2Int::new(0, 1),
+            },
+            Health { max_hp: 6, hp: 6 },
+        ))
+        .id();
 
     let action = Attack {
         attacker: attacker, //player
@@ -83,33 +87,35 @@ fn test_hit(){
         damage: 2,
     };
     action.execute(&mut world);
-    
-    let Some(npc_health) = world.get::<Health>(defender) else {return;};
+
+    let Some(npc_health) = world.get::<Health>(defender) else {
+        return;
+    };
     let npc_curr = npc_health.hp;
-    
+
     assert_eq!(npc_curr, 4)
 }
 
 #[test]
-fn test_miss(){
+fn test_miss() {
     let mut world = World::new();
 
- let attacker = world.spawn((
-        Position {
+    let attacker = world
+        .spawn((Position {
             v: Vector2Int::new(0, 0),
-        },
-    )).id();
+        },))
+        .id();
 
-    let defender = world.spawn((
-        Position {
+    let defender = world
+        .spawn((Position {
             v: Vector2Int::new(5, 5),
-        },
-    )).id();
+        },))
+        .id();
 
     let action = Attack {
         attacker: attacker, //player
         defender: defender, //NPC
         damage: 2,
     };
-    assert_eq!(false, action.execute(&mut world)) 
+    assert_eq!(false, action.execute(&mut world))
 }

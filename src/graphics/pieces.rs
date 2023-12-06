@@ -12,7 +12,7 @@ pub fn update_piece_position(
 ) {
     let mut animating = false;
     for (position, mut transform) in query.iter_mut() {
-        let target = super::get_world_position(&position, PIECE_Z);
+        let target = super::get_world_position(position, PIECE_Z);
         let d = (target - transform.translation).length();
         if d > POSITION_TOLERANCE {
             transform.translation = transform
@@ -41,7 +41,7 @@ pub fn spawn_piece_renderer(
         let mut sprite = TextureAtlasSprite::new(sprite_idx);
         sprite.custom_size = Some(Vec2::splat(TILE_SIZE));
         sprite.color = Color::WHITE;
-        let v = super::get_world_position(&position, PIECE_Z);
+        let v = super::get_world_position(position, PIECE_Z);
         commands.entity(entity).insert(SpriteSheetBundle {
             sprite,
             texture_atlas: assets.sprite_texture.clone(),

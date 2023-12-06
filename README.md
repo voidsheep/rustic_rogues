@@ -8,7 +8,7 @@ Q - Attack\
 
 The enemies have 3 HP
 
-Initially learning how to use the engine, like how to query entities and components, was the most difficult part. I wish I had gotten more important features implemented, like generating a map.
+Initially learning how to use the engine, like how to query entities and components, was the most difficult part. I wish I had gotten more important foundational features implemented.
 
 Unit tests were used to test combat logic.
 

@@ -24,12 +24,12 @@ pub fn spawn_ui(
         TextureAtlasSprite::new(3),
     ];
 
-    for i in 0..curr_hearts as usize {
-        hearts[i].color = Color::rgb(1.0, 0.0, 0.0);
-        hearts[i].custom_size = Some(Vec2::splat(TILE_SIZE));
+    for (i, item) in hearts.iter_mut().enumerate().take(curr_hearts as usize) {
+        item.color = Color::rgb(1.0, 0.0, 0.0);
+        item.custom_size = Some(Vec2::splat(TILE_SIZE));
         commands
             .spawn(SpriteSheetBundle {
-                sprite: hearts[i].clone(),
+                sprite: item.clone(),
                 texture_atlas: ascii.sprite_texture.clone(),
                 transform: Transform {
                     translation: Vec3::new(i as f32 * TILE_SIZE, TILE_SIZE * -1.0, 900.0),

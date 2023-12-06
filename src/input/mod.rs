@@ -83,8 +83,8 @@ fn player_atk(
             }
 
             let action = Attack {
-                attacker: attacker, //player
-                defender: defender, //NPC
+                attacker, //player
+                defender, //NPC
                 damage: 1,
             };
             actor.0 = Some(Box::new(action));
