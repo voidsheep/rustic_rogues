@@ -4,7 +4,9 @@ Rustic Rogues is a simple educational rust roguelike project utilizing the Bevy 
 
 Controls
 WASD - Movement\
-Q - Attack
+Q - Attack\
+
+The enemies have 3 HP
 
 Initially learning how to use the engine, like how to query entities and components, was the most difficult part. I wish I had gotten more important features implemented, like generating a map.
 

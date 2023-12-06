@@ -10,3 +10,6 @@ pub struct Position {
 
 #[derive(Component)]
 pub struct Tile;
+
+#[derive(Component)]
+pub struct Wall;

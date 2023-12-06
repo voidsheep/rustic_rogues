@@ -1,4 +1,4 @@
-//From Bevy roguelike tutorial - https://maciejglowka.com/blog/bevy-roguelike-tutorial-devlog-part-1/
+//Modified from Bevy roguelike tutorial - https://maciejglowka.com/blog/bevy-roguelike-tutorial-devlog-part-1/
 use bevy::prelude::*;
 
 use crate::board::{components::Position, CurrentBoard};
@@ -13,7 +13,7 @@ impl Action for WalkAction {
         let Some(board) = world.get_resource::<CurrentBoard>() else {
             return false;
         };
-        if !board.tiles.contains_key(&self.1) {
+        if (board.walls.contains_key(&self.1)) || (!board.tiles.contains_key(&self.1))  {
             return false;
         };
 

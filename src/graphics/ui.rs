@@ -1,6 +1,4 @@
-//- - - - - - - -
-//My Functions
-//- - - - - - - -
+//Mine
 use bevy::prelude::*;
 
 use super::{GraphicsAssets, TILE_SIZE};
@@ -34,7 +32,7 @@ pub fn spawn_ui(
                 sprite: hearts[i].clone(),
                 texture_atlas: ascii.sprite_texture.clone(),
                 transform: Transform {
-                    translation: Vec3::new(i as f32 * 32.0, -64.0, 900.0),
+                    translation: Vec3::new(i as f32 * TILE_SIZE, TILE_SIZE * -1.0, 900.0),
                     ..Default::default()
                 },
                 ..Default::default()

@@ -31,6 +31,7 @@ impl Plugin for GraphicsPlugin {
             .add_system(pieces::spawn_piece_renderer)
             .add_system(pieces::update_piece_position)
             .add_system(tiles::spawn_tile_renderer)
+            .add_system(tiles::spawn_wall_renderer)
             .add_system(ui::spawn_ui);
     }
 }
