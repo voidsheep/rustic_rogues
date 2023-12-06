@@ -77,10 +77,3 @@ impl Mul<Vector2Int> for i32 {
         Vector2Int::new(other.x * self, other.y * self)
     }
 }
-
-pub const ORTHO_DIRECTIONS: [Vector2Int; 4] = [
-    Vector2Int::UP,
-    Vector2Int::DOWN,
-    Vector2Int::LEFT,
-    Vector2Int::RIGHT,
-];
